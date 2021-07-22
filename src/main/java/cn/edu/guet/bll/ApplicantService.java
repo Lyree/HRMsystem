@@ -31,4 +31,11 @@ public interface ApplicantService {
     void admitApplicant(int applicantId);
     //面试失败
     void noadmitApplicant(String applinticantId);
+    //关键字搜索
+    List<Applicant> findpassApplicant(String keyword);
+
+    //查看通过面试人员
+    List<Applicant> viewadmitApplicant();
+    //关键字搜索
+    List<Applicant> findadmitApplicant(String keyword);
 }

@@ -37,6 +37,21 @@ import java.util.List;
     }
 
     @Override
+    public List<Applicant> findpassApplicant(String keyword) {
+        return applicantMapper.findpassApplicant(keyword);
+    }
+
+    @Override
+    public List<Applicant> viewadmitApplicant() {
+        return applicantMapper.viewadmitApplicant();
+    }
+
+    @Override
+    public List<Applicant> findadmitApplicant(String keyword) {
+        return applicantMapper.findadmitApplicant(keyword);
+    }
+
+    @Override
     public List<Applicant> searchApplicant(String keyword) {
         return applicantMapper.searchApplicant(keyword);
     }

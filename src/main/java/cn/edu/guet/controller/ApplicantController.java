@@ -114,4 +114,30 @@ public class ApplicantController {
         model.addAttribute("pageInfo",new PageTool().Paging( applicantList));
         return "viewpassApplicant";
     }
+    @GetMapping("/findpassApplicant")
+    public String findpass(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@ModelAttribute(value="keyValue")String keyValue) {
+        List<Applicant> applicantList=applicantService.findpassApplicant(keyValue);
+        PageHelper.startPage(pageNum,10);
+        PageInfo<Applicant> pageInfo = new PageInfo<Applicant>(applicantList);
+        model.addAttribute("pageInfo",pageInfo);
+        return "viewpassApplicant";
+    }
+
+    //查看录取人员
+    @GetMapping("/viewadmitApplicant")
+    public String viewadmit(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum) {
+        PageHelper.startPage(pageNum,10);
+        List<Applicant> applicantList=applicantService.viewadmitApplicant();
+        model.addAttribute("pageInfo",new PageTool().Paging( applicantList));
+        return "viewadimtApplicant";
+    }
+
+    @GetMapping("/findadmitApplicant")
+    public String findadmit(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@ModelAttribute(value="keyValue")String keyValue) {
+        List<Applicant> applicantList=applicantService.findadmitApplicant(keyValue);
+        PageHelper.startPage(pageNum,10);
+        PageInfo<Applicant> pageInfo = new PageInfo<Applicant>(applicantList);
+        model.addAttribute("pageInfo",pageInfo);
+        return "viewadmitApplicant";
+    }
 }

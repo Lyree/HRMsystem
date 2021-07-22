@@ -33,7 +33,7 @@
         </div>
         <a href="viewApplicant">应聘者</a>
         <a href="viewpassApplicant">招聘审核</a>
-        <a href="#">拟录取人员</a>
+        <a href="viewAdmitApplicant">拟录取人员</a>
         <a href="#">人力上报</a>
         <div id="addsearch" th:width="320px" th:height="60px">
             <form action="/applicant/searchApplicant" th:action="${'searchApplicant?keyVlaue='}+${keyValue}" method="get">
@@ -105,29 +105,6 @@
     </div>
 </div>
 
-<script >
-    $(function () {
-    var Accordion = function (el, multiple) {
-        this.el = el || {};
-        this.multiple = multiple || false;
-        var links = this.el.find('.link');
-        links.on('click', {
-            el: this.el,
-            multiple: this.multiple
-        }, this.dropdown);
-    };
-    Accordion.prototype.dropdown = function (e) {
-        var $el = e.data.el;
-        $this = $(this), $next = $this.next();
-        $next.slideToggle();
-        $this.parent().toggleClass('open');
-        if (!e.data.multiple) {
-            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-        }
-        ;
-    };
-    var accordion = new Accordion($('#accordion'), false);
-});
 </script>
 </body>
 </html>
