@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>应聘者</title>
+    <title>拟录取人员</title>
 
     <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -33,7 +33,7 @@
     </div>
     <a href="viewApplicant">应聘者</a>
     <a href="viewpassApplicant">招聘审核</a>
-    <a href="#">拟录取人员</a>
+    <a href="viewadmitApplicant">拟录取人员</a>
     <a href="#">人力上报</a>
     <div id="addsearch" th:width="320px" th:height="60px">
         <form action="/applicant/searchApplicant" th:action="${'searchApplicant?keyVlaue='}+${keyValue}" method="get">
