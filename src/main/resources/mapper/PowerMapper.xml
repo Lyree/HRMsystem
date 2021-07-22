@@ -11,6 +11,6 @@
     <select id="getEmpPower" parameterType="string" resultMap="setMap">
         <!--SELECT * FROM emp_power_table WHERE post_id=#{emp_id}-->
         SELECT * FROM emp_power_table WHERE post_id=(
-        SELECT post_id from EMP_ACCOUNT_TABLE  where emp_id=#{emp_id})
+        SELECT post_id from EMP_ACCOUNT_TABLE  where emp_id=#{emp_id,jdbcType=VARCHAR})
     </select>
 </mapper>

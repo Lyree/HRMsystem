@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.guet.mapper.ApplicantMapper">
+    <select id="viewApplicant" resultType="Applicant">
+        SELECT *FROM Applicant_info_TABLE WHERE applicant_state='待审核' ORDER BY applicant_info_key
+    </select>
+
+    <delete id="deleteApplicant" parameterType="String">
+       DELETE FROM Applicant_info_TABLE WHERE applicant_info_key=#{value}
+    </delete>
+    <update id="passApplicant" parameterType="INTEGER">
+        update Applicant_info_TABLE set applicant_state='待面试' where applicant_info_key=#{value}
+    </update>
+
+    <select id="searchApplicant" parameterType="String" resultType="Applicant">
+    select * from Applicant_info_TABLE where
+       applicant_state='待审核' and
+       concat(concat(concat(concat(concat(concat(concat(concat(concat(concat(concat(concat(concat(applicant_info_key,applicant_name)
+              ,applicant_sex),applicant_state)
+              ,applicant_identify_type)
+              ,applicant_identify_number)
+              ,applicant_e_mail)
+              ,applicant_nation)
+              ,applicant_native_place)
+              ,applicant_birthday)
+              ,applicant_location)
+              ,applicant_edu_bgd)
+              ,applicant_entry_way)
+              ,applicant_edu_school)
+               like '%'||#{value}||'%'
+    </select>
+    <insert id="addApplicant" parameterType="Applicant">
+        <selectKey resultType="Integer" keyProperty="applicant_info_key" order="BEFORE">
+            select Applicant_Sequence.nextval FROM DUAL
+        </selectKey>
+        insert into Applicant_info_TABLE(
+        applicant_info_key,
+        applicant_name,
+        applicant_sex,
+        applicant_state,
+        applicant_identify_type,
+        applicant_identify_number,
+        applicant_phone_number,
+        applicant_e_mail,
+        applicant_nation,
+        applicant_native_place,
+        applicant_birthday,
+        applicant_location,
+        applicant_edu_bgd,
+        applicant_entry_way,
+        applicant_edu_school
+        )
+        values (
+         #{applicant_info_key,jdbcType=INTEGER},
+         #{applicant_name,jdbcType=VARCHAR},
+         #{applicant_sex,jdbcType=VARCHAR},
+         #{applicant_state,jdbcType=VARCHAR},
+         #{applicant_identify_type,jdbcType=VARCHAR},
+         #{applicant_identify_number,jdbcType=VARCHAR},
+         #{applicant_phone_number,jdbcType=VARCHAR},
+         #{applicant_e_mail,jdbcType=VARCHAR},
+         #{applicant_nation,jdbcType=VARCHAR},
+         #{applicant_native_place,jdbcType=VARCHAR},
+         #{applicant_birthday,jdbcType=VARCHAR},
+         #{applicant_location,jdbcType=VARCHAR},
+         #{applicant_edu_bgd,jdbcType=VARCHAR},
+         #{applicant_entry_way,jdbcType=VARCHAR},
+         #{applicant_edu_school,jdbcType=VARCHAR}
+        )
+    </insert>
+    <update id="editApplicant" parameterType="Applicant" >
+        update Applicant_info_TABLE set
+        applicant_name=#{applicant_name,jdbcType=VARCHAR},
+        applicant_sex=#{applicant_sex,jdbcType=VARCHAR},
+        applicant_state=#{applicant_state,jdbcType=VARCHAR},
+        applicant_identify_type=#{applicant_identify_type,jdbcType=VARCHAR},
+        applicant_identify_number=#{applicant_identify_number,jdbcType=VARCHAR},
+        applicant_phone_number=#{applicant_phone_number,jdbcType=VARCHAR},
+        applicant_e_mail=#{applicant_e_mail,jdbcType=VARCHAR},
+        applicant_nation= #{applicant_nation,jdbcType=VARCHAR},
+        applicant_native_place=#{applicant_native_place,jdbcType=VARCHAR},
+        applicant_birthday=#{applicant_birthday,jdbcType=VARCHAR},
+        applicant_location=#{applicant_location,jdbcType=VARCHAR},
+        applicant_edu_bgd= #{applicant_edu_bgd,jdbcType=VARCHAR},
+        applicant_entry_way=#{applicant_entry_way,jdbcType=VARCHAR},
+        applicant_edu_school=#{applicant_edu_school,jdbcType=VARCHAR}
+       where applicant_info_key=#{applicant_info_key,jdbcType=INTEGER}
+    </update>
+    <select id="findByid" parameterType="INTEGER" resultType="Applicant">
+        SELECT *FROM Applicant_info_TABLE WHERE applicant_info_key=#{id}
+    </select>
+
+    <!--面试者-->
+    <select id="viewpassApplicant" resultType="Applicant">
+        SELECT *FROM Applicant_info_TABLE WHERE applicant_state='待面试' ORDER BY applicant_info_key
+    </select>
+
+    <update id="admitApplicant" parameterType="INTEGER">
+        update Applicant_info_TABLE set applicant_state='通过面试' where applicant_info_key=#{value}
+    </update>
+
+    <delete id="noadmitApplicant" parameterType="String">
+       DELETE FROM Applicant_info_TABLE WHERE applicant_info_key=#{value}
+    </delete>
+</mapper>

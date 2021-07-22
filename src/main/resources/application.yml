@@ -6,6 +6,7 @@ spring:
     url: jdbc:oracle:thin:@47.113.216.111:1521:orcl
     password: HRM1234
     username: HRMDB
+
   thymeleaf:
     prefix: classpath:/templates/
     check-template-location: true
@@ -14,7 +15,20 @@ spring:
     encoding: UTF-8
     content-type: text/html
     mode: HTML
+  jpa:
+    show-sql: true
+
+
+pagehelper:
+  helper-dialect: oracle
+  reasonable: true
+  support-methods-arguments: true
+  params:
 
 mybatis:
-  type-aliases-package: com.example.bootdemo.bean
+  type-aliases-package: cn.edu.guet.bean
   mapper-locations: classpath:mapper/*Mapper.xml
+
+  logging:
+    level:
+      cn.edu.guet.mapper: DEBUG

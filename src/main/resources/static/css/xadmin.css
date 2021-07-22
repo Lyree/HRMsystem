@@ -45,7 +45,7 @@ body{
     background: #fff;
 }
 .page{
-    text-align: center;
+    text-align: right;
 
 }
 .page a{
@@ -201,7 +201,9 @@ body{
     font-size: 14px;
 }
 
-
+.left-nav #nav li .sub-menu{
+    display: none;
+}
 .left-nav #nav li .opened{
     display: block;
 }
@@ -530,7 +532,3 @@ table th, table td {
     color: #393D49;
 }
 
-
-.left-nav #nav li .sub-menu{
-    display: none;
-}

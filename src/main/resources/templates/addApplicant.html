@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑用户</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+
+
+<body>
+<div style="width:800px;height:100%;margin-left:270px;">
+    <form  th:action="@{'saveApplicant'}" method="post" th:object="${applicant}">
+       <input class="form-control" style="display: none" type="text" th:value="*{applicant_info_key!=null}?*{applicant_info_key}:0" name="applicant_info_key"></label><br>
+       姓名<input class="form-control" type="text" th:value="*{applicant_name}" name="applicant_name"><br>
+        性别<input class="form-control" type="text" th:value="*{applicant_sex}" name="applicant_sex"><br>
+        状态<input class="form-control" type="text" th:value="*{applicant_state}" name="applicant_state"><br>
+        证件类型<input class="form-control" type="text" th:value="*{applicant_identify_type}" name="applicant_identify_type"><br>
+        证件号<input class="form-control" type="text" th:value="*{applicant_identify_number}" name="applicant_identify_number"><br>
+        手机号<input class="form-control" type="text" th:value="*{applicant_phone_number}" name="applicant_phone_number"><br>
+        邮箱<input class="form-control" type="text" th:value="*{applicant_e_mail}" name="applicant_e_mail"><br>
+        民族<input class="form-control" type="text" th:value="*{applicant_nation}" name="applicant_nation"><br>
+        籍贯<input class="form-control" type="text" th:value="*{applicant_native_place}" name="applicant_native_place"><br>
+        生日<input class="form-control" type="text" th:value="*{applicant_birthday}" name="applicant_birthday"><br>
+        居住地<input class="form-control" type="text" th:value="*{applicant_location}" name="applicant_location"><br>
+        学历<input class="form-control" type="text" th:value="*{applicant_edu_bgd}" name="applicant_edu_bgd"><br>
+        招聘渠道<input class="form-control" type="text" th:value="*{applicant_entry_way}" name="applicant_entry_way"><br>
+        毕业学校<input class="form-control" type="text" th:value="*{applicant_edu_school}" name="applicant_edu_school"><br>
+        <input class="btn btn-primary btn-lg btn-block" type="submit" value="保存">
+    </form>
+</div>
+
+</body>
+</html>
