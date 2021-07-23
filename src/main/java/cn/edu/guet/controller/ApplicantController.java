@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -32,6 +33,17 @@ public class ApplicantController {
         List<Applicant> applicantList=applicantService.viewApplicant();
         model.addAttribute("pageInfo",applicantList);
         return "viewApplicant";
+    }
+    @GetMapping("/deletesomeApplicant")
+    public ModelAndView deletesomeApplicant( String tag) {
+        String[] strs = tag.split(",");
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                applicantService.deleteApplicant(strs[i]);
+            } catch (Exception e) {
+            }
+        }
+        return new ModelAndView("redirect:viewApplicant");
     }
 
     @GetMapping("/passApplicant")

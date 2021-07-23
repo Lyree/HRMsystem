@@ -22,6 +22,21 @@
         var x = document.getElementByname("keyValue").value;
         window.location.href = "searchapplicant?id=" + x;
     }
+    /* 获取选中的对象，并删除对应的对象 */
+    function deleteApplicant(){
+        var result="";
+        var count=0;
+        $(".checkb").each(function(){
+            if($(this).is(':checked')){
+                result+=$(this).val()+",";
+                count++;
+            }else{}
+        });
+        if(!confirm("确定删除这"+count+"个应聘者信息?")){
+            return;
+        }
+        window.location.href= "deletesomeApplicant?tag="+result;
+    }
 </script>
 <body>
 <div id="wrapper">
@@ -44,6 +59,7 @@
             <input class="btn btn-primary" type="submit" value="查询">
             </form>
             <a class="btn btn-primary" id="addbt" href="#" th:href="@{'addApplicant'}" > 添加 </a>
+            <a class="btn btn-primary" id="dALL" href="#" onclick="deleteApplicant()"> 批量删除 </a>
         </div>
         <div id="data" style="height:700px;width:1500px;" >
         <table class="table table-striped table-bordered table-hover " border="1">
@@ -70,9 +86,9 @@
         </tr>
          <tbody id="adminTbody">
         <tr  th:each="applicant,infoStat : ${pageInfo}" >
-            <th>
-             <input type="checkbox" name=""  lay-skin="primary">
-            </th>
+            <td>
+             <input type="checkbox" class="checkb"  lay-skin="primary" th:value="${applicant.applicant_info_key}">
+            </td>
             <td th:text="${applicant.applicant_info_key}"></td>
             <td th:text="${applicant.applicant_name}"></td>
             <td th:text="${applicant.applicant_sex}"></td>

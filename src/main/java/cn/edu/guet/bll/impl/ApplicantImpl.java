@@ -20,7 +20,6 @@ import java.util.List;
     public void deleteApplicant(String applicantId) {
         applicantMapper.deleteApplicant(applicantId);
     }
-
     @Override
     public void passApplicant(int applicantId) {
         applicantMapper.passApplicant(applicantId);

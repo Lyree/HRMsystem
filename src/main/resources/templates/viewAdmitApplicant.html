@@ -21,6 +21,22 @@
         var x = document.getElementByname("keyValue").value;
         window.location.href = "searchapplicant?id=" + x;
     }
+
+    /* 获取选中的对象，并删除对应的对象 */
+    function deleteUser(){
+        var result="";
+        var count=0;
+        $(".checkb").each(function(){
+            if($(this).is(':checked')){
+                result+=$(this).val()+",";
+                count++;
+            }else{}
+        });
+        if(!confirm("确定删除这"+count+"件商品?")){
+            return;
+        }
+        window.location.href= "leyigou/deletesomeUser?tag="+result;
+    }
 </script>
 <body>
 <div id="wrapper">
@@ -69,8 +85,10 @@
             </tr>
             <tbody id="adminTbody">
             <tr  th:each="applicant,infoStat : ${pageInfo}" >
-
-                <td type="checkboox" th:text="${applicant.applicant_info_key}"></td>
+                <th>
+                    <input type="checkbox" name=""  lay-skin="primary">
+                </th>
+                <td th:text="${applicant.applicant_info_key}"></td>
                 <td th:text="${applicant.applicant_name}"></td>
                 <td th:text="${applicant.applicant_sex}"></td>
                 <td th:text="${applicant.applicant_state}"></td>
