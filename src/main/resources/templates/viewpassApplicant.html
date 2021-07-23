@@ -7,6 +7,8 @@
     <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/page.js"></script>
     <link rel="stylesheet" href="/css/font.css">
     <link rel="stylesheet" href="/css/xadmin.css">
     <script src="/js/layui.js" charset="utf-8"></script>
@@ -67,7 +69,8 @@
                     <th>毕业学校</th>
                     <th>操作</th>
                 </tr>
-                <tr  th:each="applicant,infoStat : ${pageInfo.list}" >
+                <tbody id="adminTbody">
+                <tr  th:each="applicant,infoStat : ${pageInfo}" >
                     <th>
                         <input type="checkbox" name=""  lay-skin="primary">
                     </th>
@@ -93,15 +96,27 @@
                         </div>
                     </td>
                 </tr>
+                </tbody>
             </table>
-            <div class="page">
-                <p>当前第 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
-                <a class="num" th:href="@{viewpassApplicant}">首页</a>
-                <a class="prev" th:href="@{viewpassApplicant(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
-                <a class="next" th:href="@{viewpassApplicant(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
-                <a class="num" th:href="@{viewpassApplicant(pageNum=${pageInfo.pages})}">尾页</a>
+            <div class="layui-card-body ">
+                <div class="page">
+                    <div>
+                        <a class="num" href="###" id="firstPage">首页</a>
+                        <a class="prev" href="###" id="prePage">&lt;&lt;
+                        </a>
+                        <span class="current" id="currentPage"></span>
+                        <a class="next" href="###"id="nextPage">&gt;&gt;
+                        </a>
+                        <a class="num" href="###" id="lastPage">尾页</a>
+                        <a class="num" href="###" id="totalpage"></a>
+                        <a class="num"> <select id="jumpWhere">
+                        </select></a>
+                        <a href="###" id="jumpPage"
+                           onclick="jumpPage()">跳转</a>
+                        <a class="num" id="countsum"></a>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 </div>

@@ -3,7 +3,6 @@ package cn.edu.guet.controller;
 
 import cn.edu.guet.bean.Applicant;
 import cn.edu.guet.bll.ApplicantService;
-import cn.edu.guet.util.PageTool;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,41 +20,33 @@ public class ApplicantController {
     private ApplicantService applicantService;
     //应聘者页面
     @GetMapping("/viewApplicant")
-    public String view(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum) {
-        PageHelper.startPage(pageNum,10);
+    public String view(Model model) {
         List<Applicant> applicantList=applicantService.viewApplicant();
-        PageInfo<Applicant> pageInfo = new PageInfo<Applicant>(applicantList);
-        model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("pageInfo",applicantList);
         return "viewApplicant";
     }
 
     @GetMapping("/deleteApplicant")
-    public String delete(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,String applicant_id) {
+    public String delete(Model model,String applicant_id) {
         applicantService.deleteApplicant(applicant_id);
-        PageHelper.startPage(pageNum,10);
         List<Applicant> applicantList=applicantService.viewApplicant();
-        PageInfo<Applicant> pageInfo = new PageInfo<Applicant>(applicantList);
-        model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("pageInfo",applicantList);
         return "viewApplicant";
     }
 
     @GetMapping("/passApplicant")
-    public String pass(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,int applicant_id) {
+    public String pass(Model model,int applicant_id) {
         applicantService.passApplicant(applicant_id);
-        PageHelper.startPage(pageNum,10);
         List<Applicant> applicantList=applicantService.viewApplicant();
-        PageInfo<Applicant> pageInfo = new PageInfo<Applicant>(applicantList);
-        model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("pageInfo",applicantList);
         return "viewApplicant";
     }
 
 
     @GetMapping("/searchApplicant")
-    public String search(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@ModelAttribute(value="keyValue")String keyValue) {
+    public String search(Model model,@ModelAttribute(value="keyValue")String keyValue) {
         List<Applicant> applicantList=applicantService.searchApplicant(keyValue);
-        PageHelper.startPage(pageNum,10);
-        PageInfo<Applicant> pageInfo = new PageInfo<Applicant>(applicantList);
-        model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("pageInfo",applicantList);
         return "viewApplicant";
     }
 
@@ -66,7 +57,7 @@ public class ApplicantController {
     }
 
     @PostMapping ("/saveApplicant")
-    public String save(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@ModelAttribute Applicant applicant,@ModelAttribute("applicant_info_key") Integer applicant_info_key) {
+    public String save(Model model,@ModelAttribute Applicant applicant,@ModelAttribute("applicant_info_key") Integer applicant_info_key) {
         if (applicant_info_key==0){
             applicantService.addApplicant(applicant);
             System.out.println(applicant.getApplicant_info_key());
@@ -74,10 +65,8 @@ public class ApplicantController {
             applicantService.editApplicant(applicant);
             System.out.println(applicant.getApplicant_name());
         }
-        PageHelper.startPage(pageNum,10);
         List<Applicant> applicantList=applicantService.viewApplicant();
-        PageInfo<Applicant> pageInfo = new PageInfo<Applicant>(applicantList);
-        model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("pageInfo",applicantList);
         return "viewApplicant";
     }
 
@@ -90,54 +79,46 @@ public class ApplicantController {
 
     //招聘页面
     @GetMapping("/viewpassApplicant")
-    public String viewpass(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum) {
-        PageHelper.startPage(pageNum,10);
+    public String viewpass(Model model) {
         List<Applicant> applicantList=applicantService.viewpassApplicant();
-        model.addAttribute("pageInfo",new PageTool().Paging( applicantList));
+        model.addAttribute("pageInfo",applicantList);
         return "viewpassApplicant";
     }
 
     @GetMapping("/admitApplicant")
-    public String admit(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,int applicant_id) {
+    public String admit(Model model,int applicant_id) {
         applicantService.admitApplicant(applicant_id);
-        PageHelper.startPage(pageNum,10);
         List<Applicant> applicantList=applicantService.viewpassApplicant();
-        model.addAttribute("pageInfo",new PageTool().Paging( applicantList));
+        model.addAttribute("pageInfo",applicantList);
         return "viewpassApplicant";
     }
 
     @GetMapping("/noadmitApplicant")
-    public String noadmit(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,String applicant_id) {
+    public String noadmit(Model model,String applicant_id) {
         applicantService.noadmitApplicant(applicant_id);
-        PageHelper.startPage(pageNum,10);
         List<Applicant> applicantList=applicantService.viewpassApplicant();
-        model.addAttribute("pageInfo",new PageTool().Paging( applicantList));
+        model.addAttribute("pageInfo",applicantList);
         return "viewpassApplicant";
     }
     @GetMapping("/findpassApplicant")
-    public String findpass(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@ModelAttribute(value="keyValue")String keyValue) {
+    public String findpass(Model model,@ModelAttribute(value="keyValue")String keyValue) {
         List<Applicant> applicantList=applicantService.findpassApplicant(keyValue);
-        PageHelper.startPage(pageNum,10);
-        PageInfo<Applicant> pageInfo = new PageInfo<Applicant>(applicantList);
-        model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("pageInfo",applicantList);
         return "viewpassApplicant";
     }
 
     //查看录取人员
     @GetMapping("/viewadmitApplicant")
-    public String viewadmit(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum) {
-        PageHelper.startPage(pageNum,10);
+    public String viewadmit(Model model) {
         List<Applicant> applicantList=applicantService.viewadmitApplicant();
-        model.addAttribute("pageInfo",new PageTool().Paging( applicantList));
-        return "viewadimtApplicant";
+        model.addAttribute("pageInfo",applicantList);
+        return "viewadmitApplicant";
     }
 
     @GetMapping("/findadmitApplicant")
-    public String findadmit(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@ModelAttribute(value="keyValue")String keyValue) {
+    public String findadmit(Model model,@ModelAttribute(value="keyValue")String keyValue) {
         List<Applicant> applicantList=applicantService.findadmitApplicant(keyValue);
-        PageHelper.startPage(pageNum,10);
-        PageInfo<Applicant> pageInfo = new PageInfo<Applicant>(applicantList);
-        model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("pageInfo",applicantList);
         return "viewadmitApplicant";
     }
 }

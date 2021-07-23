@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.guet.mapper.ApplicantMapper">
     <select id="viewApplicant" resultType="Applicant">
-        SELECT *FROM Applicant_info_TABLE WHERE applicant_state='待审核' ORDER BY applicant_info_key
+        SELECT *FROM Applicant_info_TABLE WHERE applicant_state='录入' ORDER BY applicant_info_key
     </select>
 
     <delete id="deleteApplicant" parameterType="String">
@@ -14,7 +14,7 @@
 
     <select id="searchApplicant" parameterType="String" resultType="Applicant">
     select * from Applicant_info_TABLE where
-       applicant_state='待审核' and
+       applicant_state='录入' and
        concat(concat(concat(concat(concat(concat(concat(concat(concat(concat(concat(concat(concat(applicant_info_key,applicant_name)
               ,applicant_sex),applicant_state)
               ,applicant_identify_type)
