@@ -18,13 +18,58 @@
 
 </head>
 <script>
-    function tvClick() {
-
-        var x = document.getElementByname("keyValue").value;
-        //window.location.href="http://localhost:8080/search?id="+x;
-        window.location.href = "searchapplicant?id=" + x;
+   /*不显示页面地址*/
+    window.confirm = function (message) {
+        var iframe = document.createElement("IFRAME");
+        iframe.style.display = "none";
+        iframe.setAttribute("src", 'data:text/plain,');
+        document.documentElement.appendChild(iframe);
+        var alertFrame = window.frames[0];
+        var result = alertFrame.window.confirm(message);
+        iframe.parentNode.removeChild(iframe);
+        return result;
     }
+
+    /* 获取选中的对象，并不通过对应的对象 */
+    function noadmitSomeApplicant(){
+        var result="";
+        var count=0;
+        $(".checkB").each(function(){
+            if($(this).is(':checked')){
+                result+=$(this).val()+",";
+                count++;
+            }else{}
+        });
+        if(!confirm("是否不通过这"+count+"个应聘者信息?")){
+            return;
+        }
+        window.location.href= "noadmitSomeApplicant?tags="+result;
+    }
+    /* 获取选中的对象，并通过对应的对象 */
+    function admitSomeApplicant(){
+        var result="";
+        var count=0;
+        $(".checkB").each(function(){
+            if($(this).is(':checked')){
+                result+=$(this).val()+",";
+                count++;
+            }else{}
+        });
+        if(!confirm("是否通过这"+count+"个应聘者面试?")){
+            return;
+        }
+        window.location.href= "admitSomeApplicant?tags="+result;
+    }
+   /*全选和全不选*/
+    $(function () {
+        $("#selectAlla").bind("click",function () {
+            $('input[name="checkA"]').each(function () {
+                $(this).prop("checked",$("#selectAlla").is(":checked"));
+            })
+        })
+    });
 </script>
+
 <body>
 <div id="wrapper">
     </div>
@@ -45,12 +90,14 @@
                 <input  th:width="300px" th:height="50px" name="keyValue" th:value="${keyValue}">
                 <input class="btn btn-primary" type="submit" value="查询">
             </form>
+            <a class="btn btn-primary" id="dALL" href="#" onclick="noadmitSomeApplicant()"> 不通过 </a>
+            <a class="btn btn-primary" id="pALL" href="#" onclick="admitSomeApplicant()"> 通过 </a>
         </div>
         <div id="data" style="height:700px;width:1500px;" >
             <table class="table table-striped table-bordered table-hover " border="1">
                 <tr style="text-align:center">
                     <th>
-                        <input type="checkbox" name=""  lay-skin="primary">
+                        <input type="checkbox" id="selectAlla" name=""  lay-skin="primary">
                     </th>
                     <th>ID</th>
                     <th>姓名</th>
@@ -72,7 +119,7 @@
                 <tbody id="adminTbody">
                 <tr  th:each="applicant,infoStat : ${pageInfo}" >
                     <th>
-                        <input type="checkbox" name=""  lay-skin="primary">
+                        <input type="checkbox" class="checkB" name="checkA"  lay-skin="primary" th:value="${applicant.applicant_info_key}">
                     </th>
                     <td th:text="${applicant.applicant_info_key}"></td>
                     <td th:text="${applicant.applicant_name}"></td>

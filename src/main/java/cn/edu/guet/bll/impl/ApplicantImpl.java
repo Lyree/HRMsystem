@@ -21,12 +21,12 @@ import java.util.List;
         applicantMapper.deleteApplicant(applicantId);
     }
     @Override
-    public void passApplicant(int applicantId) {
+    public void passApplicant(String applicantId) {
         applicantMapper.passApplicant(applicantId);
     }
 
     @Override
-    public void admitApplicant(int applicantId) {
+    public void admitApplicant(String applicantId) {
         applicantMapper.admitApplicant(applicantId);
     }
 
@@ -48,6 +48,11 @@ import java.util.List;
     @Override
     public List<Applicant> findadmitApplicant(String keyword) {
         return applicantMapper.findadmitApplicant(keyword);
+    }
+
+    @Override
+    public void deleteadmitApplicant(String applinticantId) {
+        applicantMapper.deleteadmitApplicant(applinticantId);
     }
 
     @Override

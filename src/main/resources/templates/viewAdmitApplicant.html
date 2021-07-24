@@ -17,26 +17,56 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
 </head>
 <script>
-    function tvClick() {
-        var x = document.getElementByname("keyValue").value;
-        window.location.href = "searchapplicant?id=" + x;
+
+    window.confirm = function (message) {
+        var iframe = document.createElement("IFRAME");
+        iframe.style.display = "none";
+        iframe.setAttribute("src", 'data:text/plain,');
+        document.documentElement.appendChild(iframe);
+        var alertFrame = window.frames[0];
+        var result = alertFrame.window.confirm(message);
+        iframe.parentNode.removeChild(iframe);
+        return result;
     }
 
     /* 获取选中的对象，并删除对应的对象 */
-    function deleteUser(){
+    function deleteadmitApplicant(){
         var result="";
         var count=0;
-        $(".checkb").each(function(){
+        $(".checkC").each(function(){
             if($(this).is(':checked')){
                 result+=$(this).val()+",";
                 count++;
             }else{}
         });
-        if(!confirm("确定删除这"+count+"件商品?")){
+        if(!confirm("确定删除这"+count+"个录用者信息?")){
             return;
         }
-        window.location.href= "leyigou/deletesomeUser?tag="+result;
+        window.location.href= "deleteSomeadmitApplicant?tages="+result;
     }
+    /* 获取选中的对象，并删除对应的对象 */
+    function passSomeApplicant(){
+        var result="";
+        var count=0;
+        $(".checkC").each(function(){
+            if($(this).is(':checked')){
+                result+=$(this).val()+",";
+                count++;
+            }else{}
+        });
+        if(!confirm("是否同意这"+count+"个应聘者面试?")){
+            return;
+        }
+        window.location.href= "passSomeApplicant?tag="+result;
+    }
+
+    $(function () {
+        $("#selectAllb").bind("click",function () {
+            $('input[name="checkD"]').each(function () {
+                $(this).prop("checked",$("#selectAllb").is(":checked"));
+            })
+        })
+    });
 </script>
 <body>
 <div id="wrapper">
@@ -54,17 +84,18 @@
     <a href="viewadmitApplicant">拟录取人员</a>
     <a href="#">人力上报</a>
     <div id="addsearch" th:width="320px" th:height="60px">
-        <form action="/applicant/searchApplicant" th:action="${'searchApplicant?keyVlaue='}+${keyValue}" method="get">
+        <form action="/applicant/searchApplicant" th:action="${'findadmitApplicant?keyVlaue='}+${keyValue}" method="get">
             <input  th:width="300px" th:height="50px" name="keyValue" th:value="${keyValue}">
             <input class="btn btn-primary" type="submit" value="查询">
         </form>
         <a class="btn btn-primary" id="addbt" href="#" th:href="@{'addApplicant'}" > 添加 </a>
+        <a class="btn btn-primary" id="dadmit" href="#" onclick="deleteadmitApplicant()"> 删除 </a>
     </div>
     <div id="data" style="height:700px;width:1500px;" >
         <table class="table table-striped table-bordered table-hover " border="1">
             <tr style="text-align:center">
                 <th>
-                    <input type="checkbox" name=""  lay-skin="primary">
+                    <input type="checkbox" id="selectAllb" name=""  lay-skin="primary">
                 </th>
                 <th>ID</th>
                 <th>姓名</th>
@@ -86,7 +117,7 @@
             <tbody id="adminTbody">
             <tr  th:each="applicant,infoStat : ${pageInfo}" >
                 <th>
-                    <input type="checkbox" name=""  lay-skin="primary">
+                    <input type="checkbox" class="checkC" name="checkD"  lay-skin="primary" th:value="${applicant.applicant_info_key}">
                 </th>
                 <td th:text="${applicant.applicant_info_key}"></td>
                 <td th:text="${applicant.applicant_name}"></td>
@@ -105,9 +136,7 @@
                 <td th:text="${applicant.applicant_edu_school}"></td>
                 <td>
                     <div id="do">
-                        <a id="d" class="btn btn-danger" th:href="${'deleteApplicant?applicant_id='}+${applicant.applicant_info_key}">删除</a>
-                        <a id="p" class="btn btn-primary" th:href="${'passApplicant?applicant_id='}+${applicant.applicant_info_key}">过审</a>
-                        <a id="c" class="btn btn-success" th:href="${'editApplicant?applicant_id='}+${applicant.applicant_info_key}">修改</a>
+                        <a id="d" class="btn btn-danger" th:href="${'deleteadmitApplicant?applicant_id='}+${applicant.applicant_info_key}">删除</a>
                     </div>
                 </td>
             </tr>

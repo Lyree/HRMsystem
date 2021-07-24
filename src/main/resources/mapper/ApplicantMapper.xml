@@ -8,7 +8,8 @@
     <delete id="deleteApplicant" parameterType="String">
        DELETE FROM Applicant_info_TABLE WHERE applicant_info_key=#{value}
     </delete>
-    <update id="passApplicant" parameterType="INTEGER">
+
+    <update id="passApplicant" parameterType="String">
         update Applicant_info_TABLE set applicant_state='待面试' where applicant_info_key=#{value}
     </update>
 
@@ -89,13 +90,13 @@
     <select id="findByid" parameterType="INTEGER" resultType="Applicant">
         SELECT *FROM Applicant_info_TABLE WHERE applicant_info_key=#{id}
     </select>
-
+    <!--***************************************************************************************************************************-->
     <!--面试者-->
     <select id="viewpassApplicant" resultType="Applicant">
         SELECT *FROM Applicant_info_TABLE WHERE applicant_state='待面试' ORDER BY applicant_info_key
     </select>
 
-    <update id="admitApplicant" parameterType="INTEGER">
+    <update id="admitApplicant" parameterType="String">
         update Applicant_info_TABLE set applicant_state='通过面试' where applicant_info_key=#{value}
     </update>
 
@@ -120,7 +121,7 @@
               ,applicant_edu_school)
                like '%'||#{value}||'%'
     </select>
-
+    <!--***************************************************************************************************************************-->
 
     <!--拟录取人员-->
     <select id="viewadmitApplicant" resultType="Applicant">
@@ -144,4 +145,8 @@
               ,applicant_edu_school)
                like '%'||#{value}||'%'
     </select>
+
+    <delete id="deleteadmitApplicant" parameterType="String">
+       DELETE FROM Applicant_info_TABLE WHERE applicant_info_key=#{value}
+    </delete>
 </mapper>

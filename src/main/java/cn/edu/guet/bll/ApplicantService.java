@@ -14,7 +14,7 @@ public interface ApplicantService {
     //删除所选应聘者
     void deleteApplicant(String applinticantId);
     //同意面试
-    void passApplicant(int applicantId);
+    void passApplicant(String applicantId);
     //关键字搜索
     List<Applicant> searchApplicant(String keyword);
     //添加
@@ -28,7 +28,7 @@ public interface ApplicantService {
     //查看面试者
     List<Applicant> viewpassApplicant();
     //通过面试
-    void admitApplicant(int applicantId);
+    void admitApplicant(String applicantId);
     //面试失败
     void noadmitApplicant(String applinticantId);
     //关键字搜索
@@ -38,4 +38,6 @@ public interface ApplicantService {
     List<Applicant> viewadmitApplicant();
     //关键字搜索
     List<Applicant> findadmitApplicant(String keyword);
+
+    void deleteadmitApplicant(String applinticantId);
 }

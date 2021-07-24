@@ -34,6 +34,7 @@ public class ApplicantController {
         model.addAttribute("pageInfo",applicantList);
         return "viewApplicant";
     }
+    //批量操作
     @GetMapping("/deletesomeApplicant")
     public ModelAndView deletesomeApplicant( String tag) {
         String[] strs = tag.split(",");
@@ -45,9 +46,20 @@ public class ApplicantController {
         }
         return new ModelAndView("redirect:viewApplicant");
     }
-
+    @GetMapping("/passSomeApplicant")
+    public ModelAndView passsomeApplicant( String tag) {
+        String[] strs = tag.split(",");
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                applicantService.passApplicant(strs[i]);
+            } catch (Exception e) {
+            }
+        }
+        return new ModelAndView("redirect:viewApplicant");
+    }
+    //单选
     @GetMapping("/passApplicant")
-    public String pass(Model model,int applicant_id) {
+    public String pass(Model model,String applicant_id) {
         applicantService.passApplicant(applicant_id);
         List<Applicant> applicantList=applicantService.viewApplicant();
         model.addAttribute("pageInfo",applicantList);
@@ -87,18 +99,41 @@ public class ApplicantController {
         map.addAttribute("applicant",applicantService.findByid(applicant_id));
         return "addApplicant";
     }
+/************************************************************************************************************************/
 
-
-    //招聘页面
+    //面试页面
     @GetMapping("/viewpassApplicant")
     public String viewpass(Model model) {
         List<Applicant> applicantList=applicantService.viewpassApplicant();
         model.addAttribute("pageInfo",applicantList);
         return "viewpassApplicant";
     }
-
+    //批量操作
+    @GetMapping("/noadmitSomeApplicant")
+    public ModelAndView noadmitSomeApplicant( String tags) {
+        String[] strs = tags.split(",");
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                applicantService.noadmitApplicant(strs[i]);
+            } catch (Exception e) {
+            }
+        }
+        return new ModelAndView("redirect:viewpassApplicant");
+    }
+    @GetMapping("/admitSomeApplicant")
+    public ModelAndView admitSomeApplicant( String tags) {
+        String[] strs = tags.split(",");
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                applicantService.admitApplicant(strs[i]);
+            } catch (Exception e) {
+            }
+        }
+        return new ModelAndView("redirect:viewpassApplicant");
+    }
+    //单选
     @GetMapping("/admitApplicant")
-    public String admit(Model model,int applicant_id) {
+    public String admit(Model model,String applicant_id) {
         applicantService.admitApplicant(applicant_id);
         List<Applicant> applicantList=applicantService.viewpassApplicant();
         model.addAttribute("pageInfo",applicantList);
@@ -118,6 +153,7 @@ public class ApplicantController {
         model.addAttribute("pageInfo",applicantList);
         return "viewpassApplicant";
     }
+    /************************************************************************************************************************/
 
     //查看录取人员
     @GetMapping("/viewadmitApplicant")
@@ -130,6 +166,26 @@ public class ApplicantController {
     @GetMapping("/findadmitApplicant")
     public String findadmit(Model model,@ModelAttribute(value="keyValue")String keyValue) {
         List<Applicant> applicantList=applicantService.findadmitApplicant(keyValue);
+        model.addAttribute("pageInfo",applicantList);
+        return "viewadmitApplicant";
+    }
+    //批量操作
+    @GetMapping("/deleteSomeadmitApplicant")
+    public ModelAndView deleteSomeadmitApplicant( String tages) {
+        String[] strs = tages.split(",");
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                applicantService.deleteadmitApplicant(strs[i]);
+            } catch (Exception e) {
+            }
+        }
+        return new ModelAndView("redirect:viewadmitApplicant");
+    }
+      //删除
+    @GetMapping("/deleteadmitApplicant")
+    public String deleteadmit(Model model,String applicant_id) {
+        applicantService.deleteadmitApplicant(applicant_id);
+        List<Applicant> applicantList=applicantService.viewadmitApplicant();
         model.addAttribute("pageInfo",applicantList);
         return "viewadmitApplicant";
     }

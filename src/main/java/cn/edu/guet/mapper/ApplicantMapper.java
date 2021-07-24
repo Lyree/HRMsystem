@@ -12,7 +12,7 @@ public interface ApplicantMapper {
     //删除所选应聘者
     void deleteApplicant(String applinticantId);
     //同意面试
-    void passApplicant(int applicantId);
+    void passApplicant(String applicantId);
     //关键字搜索
     List<Applicant> searchApplicant(String keyword);
     //添加
@@ -22,18 +22,21 @@ public interface ApplicantMapper {
     //根据id查询
     Applicant findByid(int id);
 
-
+    /************************************************************************************************************************/
     //查看面试者
     List<Applicant> viewpassApplicant();
     //通过面试
-    void admitApplicant(int applicantId);
+    void admitApplicant(String applicantId);
     //面试失败
     void noadmitApplicant(String applinticantId);
     //关键字搜索
     List<Applicant> findpassApplicant(String keyword);
 
+    /************************************************************************************************************************/
     //查看通过面试人员
     List<Applicant> viewadmitApplicant();
     //关键字搜索
     List<Applicant> findadmitApplicant(String keyword);
+    //删除
+    void deleteadmitApplicant(String applinticantId);
 }
